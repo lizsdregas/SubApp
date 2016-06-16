@@ -10,33 +10,67 @@
 
 <body ng-app="subApp" ng-controller="SubController">
 
-        <pre>{{ requests | json }}</pre>
-         
-        <ul>
-            <li ng-repeat="(key, request) in requests" style="margin-bottom: 30px;">
-                <p>{{request.name | json}}</p>  
-                <!--<p>{{request.className | json}}</p>
-                <p>{{request.date | json}}</p>
+        <h2 style="width:50%; margin: 30px auto 30px;">Sub Request List</h2>
+        <ul style="width:50%; margin: 30px auto 30px; padding:0; list-style:none;">
+
+            <li ng-repeat="request in requests | orderBy: 'name'"
+                style="margin-bottom: 30px; padding-bottom:30px; border-bottom:1px solid #ccc;">
+
+                <p>{{request.name | json}}</p>
                 <p>{{request.email | json}}</p>
+                <p>{{request.date | json}}</p>
+
+                <!--
+                <p>{{request.email | json}}</p>
+                <p>{{request.className | json}}</p>
                 <p>{{request.time | json}}</p>-->
-                
+
                 <div ng-show="{{request.fulfilled | json}}">
                     <p>sub request fulfilled</p>
 
-                    <div class="btn btn-danger" 
-                          ng-click="removeRequest(key)">     
-                        Delete sub request   
+                    <div class="btn btn-danger"
+                         ng-click="requests.$remove(request)">
+                        Delete sub request
                     </div>
-                </div> 
+                </div>
 
                 <div ng-hide="{{request.fulfilled | json}}">
-                    sub request NOT fulfilled
+                    Sub this class:
+                    <form novalidate style="width:20%; margin: 0 15px 0;">
+                      <div class="form-group">
+                        <label>Sub Name</label>
+                        <input type="text" ng-model="request.subName" class="form-control" required/>
+                      </div>
+                      <div class="form-group">
+                        <label>Sub Email</label>
+                        <input type="email" ng-model="request.subEmail" class="form-control" required /><br />
+                      </div>
+                      <input class="btn btn-default" type="submit" ng-click="addSub(request)" value="Submit" />
+                    </form>
                 </div>
 
             </li>
         </ul>
 
+        <h2 style="width:50%; margin: 30px auto 30px;">New Sub Request</h2>
+          <form novalidate style="width:50%; margin: 0 auto 30px;">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" ng-model="request.name" class="form-control" required/>
+            </div>
+            <div class="form-group">
+              <label>email</label>
+              <input type="email" ng-model="request.email" class="form-control" required /><br />
+            </div>
+            <div class="form-group">
+              <label>date</label>
+              <input type="date" ng-model="request.date" class="form-control" required /><br />
+            </div>
+            <input class="btn" type="button" ng-click="reset()" value="Reset" />
+            <input class="btn btn-default" type="submit" ng-click="addRequest(request)" value="Submit" />
+          </form>
 
+        <pre>{{ requests | json }}</pre>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
@@ -44,6 +78,5 @@
 
     <script src="app.js"></script>
 
-
 </body>
-</html> 
+</html>
