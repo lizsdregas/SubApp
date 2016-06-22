@@ -54,5 +54,5 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
     }
 
     // init
-    $scope.loadRequests();  
+    $scope.loadRequests(); 
 }

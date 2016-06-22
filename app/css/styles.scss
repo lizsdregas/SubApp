@@ -1,0 +1,119 @@
+$margin: 30px;
+$bs-red: #a94442;
+
+.sub-request-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.new-sub-request {
+    margin-top: $margin;
+
+    .bg-gray {
+        padding: $margin * 1.5;
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    form {
+        .btn {
+            float: right;
+            margin-left: $margin / 2;
+        }
+    }
+}
+
+.btn-new-request {
+    float: right;
+
+    .glyphicon-menu-up {
+        display: none;
+    }
+
+    &.expanded {
+        .glyphicon-menu-up {
+            display: inline-block;
+        }
+
+        .glyphicon-menu-down {
+            display: none;
+        }
+    }
+}
+
+.bg-gray {
+    background: #f1f1f1;
+    padding: $margin;
+}
+
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+
+    h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+
+    .btn {
+        margin-top: 15px;
+    }
+
+    + .bs-callout {
+        margin-top: -5px;
+    }
+
+    .remove-request {
+        float: right;
+    }
+}
+
+.bs-callout-danger {
+    border-left-color: #ce4844;
+
+    h4 {
+        color: #ce4844;
+    }
+}
+
+.bs-callout-warning {
+    border-left-color: #aa6708;
+
+    h4 {
+        color: #aa6708;
+    }
+}
+
+.bs-callout-info {
+    border-left-color: #1b809e;
+
+    h4 {
+        color: #1b809e;
+    }
+}
+
+.class-info {
+    margin: $margin 0;
+
+    > p {
+        margin-bottom: 5px;
+    }
+}
+
+.ng-submitted {
+    .form-control {
+        &.ng-invalid {
+            border-color: $bs-red;
+        }
+    }
+}
