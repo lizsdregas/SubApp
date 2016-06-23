@@ -66,3 +66,8 @@
 
 .ng-submitted .form-control.ng-invalid {
   border-color: #a94442; }
+
+.select-group select {
+  display: inline-block;
+  margin-right: 1%;
+  width: 20%; }

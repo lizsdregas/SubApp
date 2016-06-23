@@ -33,26 +33,42 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
     $scope.addRequest = function (request) {
 
         var formatDate = function (date) {
-            var formattedDate = date.toString().substr(0, 15);
-            return formattedDate;
+            var displayDate = date.toString().substr(0, 15);
+            return displayDate; 
         }
 
-        var getDateObject = function(date, hours, minutes) {
-            var newDateObject = date;
-            newDateObject.setHours(hours);
-            newDateObject.setMinutes(minutes);
+        var formatTime = function (hours, minutes, time) {
+            var displayTime = request.classTimeHours + ':' + request.classTimeMinutes + request.classTimeAmPm;
+            return displayTime;
+        }
 
-            return newDateObject.toJSON();
+        var getSortDate = function(date, hours, minutes, ampm) {
+            var getSortDate = date,
+                hours = parseInt(hours, 10),
+                ampm = ampm;
+
+            if (ampm == "pm" && hours < 12) {
+                 hours = hours + 12;
+            }
+            if (ampm == "am" && hours == 12) {
+                hours = hours - 12;
+            }
+
+            getSortDate.setHours(hours);
+            getSortDate.setMinutes(minutes);
+
+            return getSortDate.toJSON();
         }
 
         $scope.requests.$add({ 
             className: request.className,
-            date: getDateObject(request.datePickerDate, hours, minutes),
-            formattedDate: formatDate(request.datePickerDate), 
-            fulfilled: false, 
+            date: getSortDate(request.datePickerDate, request.classTimeHours, request.classTimeMinutes, request.classTimeAmPm),
+            displayDate: formatDate(request.datePickerDate),
+            fulfilled: false,
+            location: request.Location, 
             teacherEmail: request.teacherEmail,
-            teacherName: request.teacherName,
-            time: request.time
+            teacherName: request.teacherName, 
+            time: formatTime(request.classTimeHours, request.classTimeMinutes, request.classTimeAmPm)
         });
 
         $scope.toggleNewRequestForm(); 
@@ -94,7 +110,7 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
 
     $scope.toggleMin = function () {
         $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-        $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+        $scope.dateOptions.minDate = $scope.inlineOptions.minDate; 
     };
 
     $scope.toggleMin();
@@ -153,6 +169,14 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
     $scope.hstep = 1;
     $scope.mstep = 15;
     $scope.hours = 2;
+
+
+    $scope.openCalendar = function(e) {
+        e.preventDefault(); 
+        e.stopPropagation();
+
+        $scope.isOpen = true;
+    };
 
     // init
     $scope.loadRequests(); 
