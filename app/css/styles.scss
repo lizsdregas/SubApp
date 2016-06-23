@@ -1,5 +1,6 @@
 $margin: 30px;
 $bs-red: #a94442;
+$green: #558564; 
 
 .sub-request-list {
     list-style: none;
@@ -87,18 +88,18 @@ $bs-red: #a94442;
 }
 
 .bs-callout-warning {
-    border-left-color: #aa6708;
+    border-left-color: $bs-red;
 
     h4 {
-        color: #aa6708;
+        color: $bs-red;
     }
 }
 
 .bs-callout-info {
-    border-left-color: #1b809e;
+    border-left-color: $green;
 
     h4 {
-        color: #1b809e;
+        color: $green;
     }
 }
 

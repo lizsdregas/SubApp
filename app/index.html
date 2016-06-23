@@ -12,15 +12,17 @@
 </head>
 
 <body ng-app="subApp" ng-controller="SubController">
-
+     
     <div class="container">
+        <h1>Find a sub for your class or sign up to sub a class.</h1>
+
         <div class="row">
             <div class="col-md-8 col-sm-10">
 
                 <!-- new sub request wrapper -->
                 <div class="new-sub-request">
                     <div class="clearfix">
-                        <button class="btn btn-success btn-new-request"
+                        <button class="btn btn-info btn-new-request"
                                 ng-class="requestFormVisible ? 'expanded' : ''"
                                 ng-click="toggleNewRequestForm()">
                             New Sub Request
@@ -30,7 +32,7 @@
                     </div>
 
                     <div class="bg-gray"
-                         ng-show="requestFormVisible" 
+                         ng-show="requestFormVisible"
                          ng-cloak>
                         <h2>New Sub Request</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tincidunt cursus lectus, a vestibulum nibh vulputate non. Aenean vitae metus vel ante cursus eleifend. Sed egestas ullamcorper egestas.</p>
@@ -43,7 +45,7 @@
                                 <input type="text"
                                        name="teacherName"
                                        ng-model="request.teacherName"
-                                       class="form-control" required/>
+                                       class="form-control" required />
                                 <div class="text-danger"
                                      ng-show="newRequestForm.$submitted || newRequestForm.teacherName.$touched">
                                     <div ng-show="newRequestForm.teacherName.$error.required">Tell us your name.</div>
@@ -54,7 +56,7 @@
                                 <input type="text"
                                        name="teacherEmail"
                                        ng-model="request.teacherEmail"
-                                       class="form-control" required/>
+                                       class="form-control" required />
                                 <div class="text-danger"
                                      ng-show="newRequestForm.$submitted || newRequestForm.teacherEmail.$touched">
                                     <div ng-show="newRequestForm.teacherEmail.$error.required">Tell us your email.</div>
@@ -65,7 +67,7 @@
                                 <input type="text"
                                        name="className"
                                        ng-model="request.className"
-                                       class="form-control" required/>
+                                       class="form-control" required />
                                 <div class="text-danger"
                                      ng-show="newRequestForm.$submitted || newRequestForm.className.$touched">
                                     <div ng-show="newRequestForm.className.$error.required">Tell us your class name.</div>
@@ -73,29 +75,32 @@
                             </div>
                             <div class="form-group">
                                 <label>Class Date</label>
-                                <input type="text"
-                                       name="date"
-                                       ng-model="request.date"
-                                       class="form-control" required/>
-                                <div class="text-danger"
-                                     ng-show="newRequestForm.$submitted || newRequestForm.date.$touched">
-                                    <div ng-show="newRequestForm.date.$error.required">Tell us your class date.</div>
+                                <div class="input-group">
+                                    <input type="text"
+                                           class="form-control"
+                                           uib-datepicker-popup="{{format}}"
+                                           ng-model="request.datePickerDate"
+                                           is-open="popup1.opened"
+                                           datepicker-options="dateOptions"
+                                           ng-required="true"
+                                           close-text="Close" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open1()">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Class Time</label>
-                                <input type="text"
-                                       name="time"
-                                       ng-model="request.time"
-                                       class="form-control" required/>
-                                <div class="text-danger"
-                                     ng-show="newRequestForm.$submitted || newRequestForm.time.$touched">
-                                    <div ng-show="newRequestForm.time.$error.required">Tell us your class time.</div>
-                                </div>
+                                <uib-timepicker ng-model="mytime"
+                                                hour-step="hstep"
+                                                minute-step="mstep">
+                                </uib-timepicker> 
                             </div>
                             <div class="clearfix">
-                                <input class="btn btn-default" type="submit" value="Submit"/>
-                                <input class="btn" type="button" ng-click="toggleNewRequestForm()" value="Cancel"/>
+                                <input class="btn btn-default" type="submit" value="Submit" />
+                                <input class="btn" type="button" ng-click="toggleNewRequestForm()" value="Cancel" />
                             </div>
                         </form>
 
@@ -103,9 +108,9 @@
                 </div>
 
                 <!-- start sub request list -->
-                <h2>Sub Requests</h2>  
+                <h2>Sub Requests</h2>
                 <ul class="sub-request-list">
-                    <li ng-repeat="request in requests"
+                    <li ng-repeat="request in requests | orderBy: 'date'"
                         ng-class="{{request.fulfilled}} ? 'bs-callout-info' : 'bs-callout-warning'"
                         class="bs-callout">
 
@@ -116,7 +121,7 @@
                             <p>{{request.teacherName}}</p>
                             <p>{{request.teacherEmail}}</p>
                             <p>{{request.className}}</p>
-                            <p>{{request.date}}</p>
+                            <p>{{request.formattedDate}}</p>
                             <p>{{request.time}}</p>
                         </div>
 
@@ -186,6 +191,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
     <script src="app.js"></script>

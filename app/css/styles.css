@@ -50,14 +50,14 @@
     color: #ce4844; }
 
 .bs-callout-warning {
-  border-left-color: #aa6708; }
+  border-left-color: #a94442; }
   .bs-callout-warning h4 {
-    color: #aa6708; }
+    color: #a94442; }
 
 .bs-callout-info {
-  border-left-color: #1b809e; }
+  border-left-color: #558564; }
   .bs-callout-info h4 {
-    color: #1b809e; }
+    color: #558564; }
 
 .class-info {
   margin: 30px 0; }
