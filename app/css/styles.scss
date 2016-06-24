@@ -1,6 +1,7 @@
-$margin: 30px;
-$bs-red: #a94442;
+$margin: 15px;
+$red: #a94442;
 $green: #558564; 
+$gray: #eee;
 
 .sub-request-list {
     list-style: none;
@@ -28,32 +29,18 @@ $green: #558564;
 }
 
 .btn-new-request {
-    float: right;
-
-    .glyphicon-menu-up {
-        display: none;
-    }
-
-    &.expanded {
-        .glyphicon-menu-up {
-            display: inline-block;
-        }
-
-        .glyphicon-menu-down {
-            display: none;
-        }
-    }
+    width:100%;
 }
 
 .bg-gray {
-    background: #f1f1f1;
+    background: $gray;
     padding: $margin;
 }
 
 .bs-callout {
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #eee;
+    padding: $margin;
+    margin: $margin 0;
+    border: 1px solid $gray;
     border-left-width: 5px;
     border-radius: 3px;
 
@@ -77,25 +64,17 @@ $green: #558564;
     .remove-request {
         float: right;
     }
-}
+} 
 
-.bs-callout-danger {
-    border-left-color: #ce4844;
-
-    h4 {
-        color: #ce4844;
-    }
-}
-
-.bs-callout-warning {
-    border-left-color: $bs-red;
+.callout-red {
+    border-left-color: $red;
 
     h4 {
-        color: $bs-red;
+        color: $red;
     }
 }
-
-.bs-callout-info {
+ 
+.callout-green {
     border-left-color: $green;
 
     h4 {
@@ -114,7 +93,7 @@ $green: #558564;
 .ng-submitted {
     .form-control {
         &.ng-invalid {
-            border-color: $bs-red;
+            border-color: $red;
         }
     }
 }
@@ -123,6 +102,14 @@ $green: #558564;
     select {
         display:inline-block;
         margin-right:1%;
-        width:20%;
+        width:30%;
+    }
+}
+
+.loading {
+    margin-top:$margin; 
+
+    img {
+        margin:auto; 
     }
 }

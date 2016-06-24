@@ -5,9 +5,13 @@ var app = angular.module('subApp', ['firebase', 'ui.bootstrap']);
 app.controller('SubController', ['$scope', '$firebaseArray', '$firebaseObject', SubController]);
 
 function SubController($scope, $firebaseArray, $firebaseObject) {
+
+    // loading
+    $scope.dataLoaded = false;
      
     // create & load request data  
     $scope.loadRequests = function () {
+
         // firebase data location
         var firebaseUrl = 'https://sub-spa.firebaseio.com/requests';
 
@@ -16,6 +20,10 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
 
         // create array
         $scope.requests = $firebaseArray(ref);
+
+        ref.on('value', function () {
+            $scope.dataLoaded = true; 
+        })
     }
 
     // hide request form on page load
@@ -115,17 +123,17 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
 
     $scope.toggleMin();
 
-    $scope.open1 = function () {
-        $scope.popup1.opened = true;
+    $scope.openDatePicker = function () {
+        $scope.datePicker.opened = true;
     };
-
+     
     $scope.setDate = function (year, month, day) {
         $scope.datePickerDate = new Date(year, month, day);
     };
 
     $scope.format = 'shortDate'; 
 
-    $scope.popup1 = {
+    $scope.datePicker = {
         opened: false
     };
 
@@ -164,19 +172,6 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
         return ''; 
     }
 
-    // timepicker (ui bootstrap)
-    $scope.mytime = new Date();
-    $scope.hstep = 1;
-    $scope.mstep = 15;
-    $scope.hours = 2;
-
-
-    $scope.openCalendar = function(e) {
-        e.preventDefault(); 
-        e.stopPropagation();
-
-        $scope.isOpen = true;
-    };
 
     // init
     $scope.loadRequests(); 
