@@ -1,6 +1,4 @@
-﻿
-//////// angularfire
-var app = angular.module('subApp', ['firebase', 'ui.bootstrap']);
+﻿var app = angular.module('subApp', ['firebase', 'ui.bootstrap']);
 
 app.controller('SubController', ['$scope', '$firebaseArray', '$firebaseObject', SubController]);
 
@@ -8,8 +6,8 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
 
     // loading
     $scope.dataLoaded = false;
-     
-    // create & load request data  
+
+    // create & load request data
     $scope.loadRequests = function () {
 
         // firebase data location
@@ -22,7 +20,7 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
         $scope.requests = $firebaseArray(ref);
 
         ref.on('value', function () {
-            $scope.dataLoaded = true; 
+            $scope.dataLoaded = true;
         })
     }
 
@@ -34,15 +32,12 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
         $scope.requestFormVisible = !$scope.requestFormVisible;
     }
 
-    // var query = messagesRef.orderByChild("timestamp").limitToLast(25);
-    // $scope.filteredMessages = $firebaseArray(query);
-
     // add new request
     $scope.addRequest = function (request) {
 
         var formatDate = function (date) {
             var displayDate = date.toString().substr(0, 15);
-            return displayDate; 
+            return displayDate;
         }
 
         var formatTime = function (hours, minutes, time) {
@@ -68,25 +63,25 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
             return getSortDate.toJSON();
         }
 
-        $scope.requests.$add({ 
+        $scope.requests.$add({
             className: request.className,
             date: getSortDate(request.datePickerDate, request.classTimeHours, request.classTimeMinutes, request.classTimeAmPm),
             displayDate: formatDate(request.datePickerDate),
             fulfilled: false,
-            location: request.Location, 
+            location: request.Location,
             teacherEmail: request.teacherEmail,
-            teacherName: request.teacherName, 
+            teacherName: request.teacherName,
             time: formatTime(request.classTimeHours, request.classTimeMinutes, request.classTimeAmPm)
         });
 
-        $scope.toggleNewRequestForm(); 
+        $scope.toggleNewRequestForm();
     }
 
     // update request with sub
     $scope.addSub = function(request) {
         request.fulfilled = true;
         request.subName = request.subName;
-        request.subEmail = request.subEmail;  
+        request.subEmail = request.subEmail;
         $scope.requests.$save(request).then(function () {
             $scope.loadRequests();
         });
@@ -103,76 +98,29 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
         $scope.datePickerDate = null;
     };
 
-    $scope.inlineOptions = {
-        customClass: getDayClass,
-        minDate: new Date(),
-        showWeeks: true
-    };
-
     $scope.dateOptions = {
         formatYear: 'yy',
         maxDate: new Date(2050, 12, 31),
         minDate: new Date(),
-        startingDay: 1
+        startingDay: 1,
+        showWeeks:false
     };
 
-    $scope.toggleMin = function () {
-        $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-        $scope.dateOptions.minDate = $scope.inlineOptions.minDate; 
-    };
-
-    $scope.toggleMin();
-
-    $scope.openDatePicker = function () {
-        $scope.datePicker.opened = true;
-    };
-     
     $scope.setDate = function (year, month, day) {
         $scope.datePickerDate = new Date(year, month, day);
     };
 
-    $scope.format = 'shortDate'; 
+    $scope.format = 'shortDate';
+
+    $scope.openDatePicker = function () {
+        $scope.datePicker.opened = true;
+    };
 
     $scope.datePicker = {
         opened: false
     };
+    // end datepicker
 
-    var tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-
-    var afterTomorrow = new Date();
-        afterTomorrow.setDate(tomorrow.getDate() + 1);
-
-        $scope.events = [
-      {
-          date: tomorrow,
-          status: 'full'
-      },
-      {
-          date: afterTomorrow,
-          status: 'partially'
-      }
-    ];
-
-    function getDayClass(data) {
-        var date = data.date,
-          mode = data.mode;
-        if (mode === 'day') {
-            var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-
-            for (var i = 0; i < $scope.events.length; i++) {
-                var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-                if (dayToCheck === currentDay) {
-                    return $scope.events[i].status;
-                }
-            }
-        }
-
-        return ''; 
-    }
-
-
-    // init
-    $scope.loadRequests(); 
-}
+    // load app
+    $scope.loadRequests();
+} 
