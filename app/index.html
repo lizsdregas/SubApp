@@ -13,7 +13,7 @@
 <body ng-app="subApp" ng-controller="MainCtrl">
 
     <div class="container">
-
+ 
         <div class="row">
             <div class="col-sm-8 col-md-10">
                 <h1>Find a sub for your class or sign up to sub a class.</h1>
@@ -31,7 +31,7 @@
 
                     <h3>Active Sub Requests</h3>
                     <ul class="sub-request-list">
-                        <li ng-repeat="request in requests | orderBy: 'date'"
+                        <li ng-repeat="request in requests | isFutureDate | orderBy: 'date'"
                             ng-class="{{request.fulfilled}} ? 'callout-green' : 'callout-red'"
                             class="bs-callout">
 
@@ -223,6 +223,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.3/ui-bootstrap-tpls.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>

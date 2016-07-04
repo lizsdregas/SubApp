@@ -4,6 +4,8 @@ app.controller('MainCtrl', ['$scope', '$firebaseArray', '$firebaseObject', MainC
 
 app.controller('DatePickerCtrl', ['$scope', DatePickerCtrl]);
 
+app.filter('isFutureDate', isFutureDate);
+
 function MainCtrl($scope, $firebaseArray, $firebaseObject) {
 
     // loading
@@ -58,7 +60,7 @@ function MainCtrl($scope, $firebaseArray, $firebaseObject) {
         $scope.requests.$add({
             className: request.className,
             date: getSortDate(request.datePickerDate, request.classTimeHours, request.classTimeMinutes, request.classTimeAmPm),
-            fulfilled: false, 
+            fulfilled: false,
             location: request.Location,
             teacherEmail: request.teacherEmail,
             teacherName: request.teacherName,
@@ -128,4 +130,14 @@ function DatePickerCtrl($scope) {
   $scope.datePicker = {
       opened: false
   };
+}
+
+
+// filter for dates
+function isFutureDate(){
+  return function(items) {
+    return items.filter(function(item){
+      return moment(item.date).isAfter(new Date());
+    })
+  }
 }
