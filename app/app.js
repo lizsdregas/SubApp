@@ -1,8 +1,10 @@
 ﻿var app = angular.module('subApp', ['firebase', 'ui.bootstrap']);
 
-app.controller('SubController', ['$scope', '$firebaseArray', '$firebaseObject', SubController]);
+app.controller('MainCtrl', ['$scope', '$firebaseArray', '$firebaseObject', MainCtrl]);
 
-function SubController($scope, $firebaseArray, $firebaseObject) {
+app.controller('DatePickerCtrl', ['$scope', DatePickerCtrl]);
+
+function MainCtrl($scope, $firebaseArray, $firebaseObject) {
 
     // loading
     $scope.dataLoaded = false;
@@ -35,16 +37,6 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
     // add new request
     $scope.addRequest = function (request) {
 
-        var formatDate = function (date) {
-            var displayDate = date.toString().substr(0, 15);
-            return displayDate;
-        }
-
-        var formatTime = function (hours, minutes, time) {
-            var displayTime = request.classTimeHours + ':' + request.classTimeMinutes + request.classTimeAmPm;
-            return displayTime;
-        }
-
         var getSortDate = function(date, hours, minutes, ampm) {
             var getSortDate = date,
                 hours = parseInt(hours, 10),
@@ -66,15 +58,25 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
         $scope.requests.$add({
             className: request.className,
             date: getSortDate(request.datePickerDate, request.classTimeHours, request.classTimeMinutes, request.classTimeAmPm),
-            displayDate: formatDate(request.datePickerDate),
-            fulfilled: false,
+            fulfilled: false, 
             location: request.Location,
             teacherEmail: request.teacherEmail,
             teacherName: request.teacherName,
-            time: formatTime(request.classTimeHours, request.classTimeMinutes, request.classTimeAmPm)
         });
 
+        // close the form
         $scope.toggleNewRequestForm();
+
+        //clear the form
+        $scope.resetNewRequestForm();
+    }
+
+    // reset request form
+    $scope.resetNewRequestForm = function(request) {
+      $scope.requestFormMaster = {};
+      $scope.request = angular.copy($scope.requestFormMaster);
+      $scope.newRequestForm.$setPristine();
+      $scope.newRequestForm.$setUntouched();
     }
 
     // update request with sub
@@ -87,40 +89,43 @@ function SubController($scope, $firebaseArray, $firebaseObject) {
         });
     }
 
-    // datepicker (ui bootstrap)
-    $scope.today = function () {
-        $scope.datePickerDate = new Date();
-    };
-
-    $scope.today();
-
-    $scope.clear = function () {
-        $scope.datePickerDate = null;
-    };
-
-    $scope.dateOptions = {
-        formatYear: 'yy',
-        maxDate: new Date(2050, 12, 31),
-        minDate: new Date(),
-        startingDay: 1,
-        showWeeks:false
-    };
-
-    $scope.setDate = function (year, month, day) {
-        $scope.datePickerDate = new Date(year, month, day);
-    };
-
-    $scope.format = 'shortDate';
-
-    $scope.openDatePicker = function () {
-        $scope.datePicker.opened = true;
-    };
-
-    $scope.datePicker = {
-        opened: false
-    };
-    // end datepicker
-
     // load app
     $scope.loadRequests();
-} 
+}
+
+// datepicker (ui bootstrap)
+function DatePickerCtrl($scope) {
+
+  $scope.today = function () {
+      $scope.datePickerDate = new Date();
+  };
+
+  $scope.today();
+
+  $scope.clear = function () {
+      $scope.datePickerDate = null;
+  };
+
+  $scope.dateOptions = {
+      formatYear: 'yy',
+      maxDate: new Date(2050, 12, 31),
+      minDate: new Date(),
+      startingDay: 1,
+      showWeeks:false
+  };
+
+  $scope.setDate = function (year, month, day) {
+      $scope.datePickerDate = new Date(year, month, day);
+      $scope.$emit($scope.datePickerDate);
+  };
+
+  $scope.format = 'shortDate';
+
+  $scope.openDatePicker = function () {
+      $scope.datePicker.opened = true;
+  };
+
+  $scope.datePicker = {
+      opened: false
+  };
+}
