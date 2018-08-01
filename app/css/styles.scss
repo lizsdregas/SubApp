@@ -1,115 +1,142 @@
-$margin: 15px;
-$red: #a94442;
-$green: #558564; 
-$gray: #eee;
+$margin: 50px;
+$pink: rgb(255,229,237);
+$green: rgb(224,255,233);
+$red: red; 
+$font-headline: 'Ruda', Sans-Serif;
+$font-copy: 'Roboto Slab', Serif;
 
-.sub-request-list {
+html, 
+body {
+    height: 100%;
+}
+
+body {
+    background: linear-gradient(to bottom, $pink 0%, $green 100%);
+    font-family: $font-copy; 
+}
+
+// OVERRIDE DEFAULTS
+ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.new-sub-request {
-    margin-top: $margin;
+// TYPOGRAPHY
+h1, h2 {
+    font-family: $font-headline; 
+    margin: 0;
+}
 
-    .bg-gray {
-        padding: $margin * 1.5;
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: $margin / 3;
+}
+
+button {
+    font-family: $font-headline; 
+    font-size: 0.8em;  
+}
+
+// LAYOUT
+@media (min-width: 768px) {
+    .wrapper {
+        align-items: center;
+        display: grid;
+        grid-template-columns: 65% 35%;
+        grid-template-rows:  10vw auto 5vw;
+        grid-gap: 1em;
+        justify-items: center;
+        padding: $margin; 
+    } 
+
+    header,
+    footer {
+        grid-column: span 2;
+        text-align: center;
     }
 
-    h2 {
-        margin-top: 0;
+    aside {
+        align-self: start; 
+        justify-self: left;
     }
+}
 
-    form {
-        .btn {
-            float: right;
-            margin-left: $margin / 2;
+@media (max-width: 767px) {
+    .wrapper {
+        padding: $margin;
+
+        > * {
+            margin-bottom: $margin;  
         }
-    }
+    } 
 }
 
-.btn-new-request {
-    width:100%;
-}
-
-.bg-gray {
-    background: $gray;
-    padding: $margin;
-}
-
-.bs-callout {
-    padding: $margin;
-    margin: $margin 0;
-    border: 1px solid $gray;
-    border-left-width: 5px;
-    border-radius: 3px;
-
-    h4 {
-        margin-top: 0;
-        margin-bottom: 5px;
-    }
-
-    p:last-child {
-        margin-bottom: 0;
-    }
-
-    .btn {
-        margin-top: 15px;
-    }
-
-    + .bs-callout {
-        margin-top: -5px;
-    }
-
-    .remove-request {
-        float: right;
-    }
+// MAIN FORM 
+form {
+    margin-bottom: $margin / 2;
+    position: relative;
 } 
 
-.callout-red {
-    border-left-color: $red;
-
-    h4 {
-        color: $red;
-    }
-}
- 
-.callout-green {
-    border-left-color: $green;
-
-    h4 {
-        color: $green;
-    }
+.ng-touched.ng-invalid {
+    border-color: $red;
 }
 
-.class-info {
-    margin: $margin 0;
-
-    > p {
-        margin-bottom: 5px;
-    }
+.error {
+    color: red;
+    font-size: 0.5em;
+    position: absolute;
+    top: 100%; 
 }
 
-.ng-submitted {
-    .form-control {
-        &.ng-invalid {
-            border-color: $red;
-        }
-    }
+// SIDEBAR
+.fun-idea {
+    margin-top: $margin / 3; 
+    min-height: 50px; 
 }
 
-.select-group {
-    select {
-        display:inline-block;
-        margin-right:1%;
-        width:30%;
-    }
+.loading-wrapper {
+    align-items: center;
+    display: grid;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
 }
 
 .loading {
-    margin-top:$margin; 
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
 
-    img {
-        margin:auto; 
+    &:after {
+        animation: lds-hourglass 1.2s infinite;
+        border: 26px solid #fff;
+        border-color: #fff transparent #fff transparent;
+        border-radius: 50%;
+        box-sizing: border-box;
+        content: "";
+        display: block;
+        height: 0;
+        margin: 6px;
+        width: 0;  
     }
 }
+
+@keyframes lds-hourglass {
+    0% {
+      transform: rotate(0);
+      animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    50% {
+      transform: rotate(900deg);
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    100% {
+      transform: rotate(1800deg);
+    }
+  }

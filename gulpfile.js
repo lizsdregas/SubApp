@@ -4,8 +4,8 @@ var gulp = require('gulp'),
 
 gulp.task('sass', function () {
     return gulp.src('app/css/styles.scss')
-        .pipe(sass()).on('error', sass.logError)
-        .pipe(gulp.dest('app/css'));
+    .pipe(sass()).on('error', sass.logError)
+    .pipe(gulp.dest('app/css'));
 });
 
 gulp.task('watch', function () {

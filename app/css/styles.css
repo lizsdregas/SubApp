@@ -1,67 +1,101 @@
-.sub-request-list {
+html,
+body {
+  height: 100%; }
+
+body {
+  background: linear-gradient(to bottom, #ffe5ed 0%, #e0ffe9 100%);
+  font-family: "Roboto Slab", Serif; }
+
+ul {
   list-style: none;
   margin: 0;
   padding: 0; }
 
-.new-sub-request {
-  margin-top: 15px; }
-  .new-sub-request .bg-gray {
-    padding: 22.5px; }
-  .new-sub-request h2 {
-    margin-top: 0; }
-  .new-sub-request form .btn {
-    float: right;
-    margin-left: 7.5px; }
+h1, h2 {
+  font-family: "Ruda", Sans-Serif;
+  margin: 0; }
 
-.btn-new-request {
+h1 {
+  font-size: 2em; }
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 16.66667px; }
+
+button {
+  font-family: "Ruda", Sans-Serif;
+  font-size: 0.8em; }
+
+@media (min-width: 768px) {
+  .wrapper {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 65% 35%;
+    grid-template-rows: 10vw auto 5vw;
+    grid-gap: 1em;
+    justify-items: center;
+    padding: 50px; }
+  header,
+  footer {
+    grid-column: span 2;
+    text-align: center; }
+  aside {
+    align-self: start;
+    justify-self: left; } }
+
+@media (max-width: 767px) {
+  .wrapper {
+    padding: 50px; }
+    .wrapper > * {
+      margin-bottom: 50px; } }
+
+form {
+  margin-bottom: 25px;
+  position: relative; }
+
+.ng-touched.ng-invalid {
+  border-color: red; }
+
+.error {
+  color: red;
+  font-size: 0.5em;
+  position: absolute;
+  top: 100%; }
+
+.fun-idea {
+  margin-top: 16.66667px;
+  min-height: 50px; }
+
+.loading-wrapper {
+  align-items: center;
+  display: grid;
+  height: 100%;
+  justify-content: center;
   width: 100%; }
 
-.bg-gray {
-  background: #eee;
-  padding: 15px; }
-
-.bs-callout {
-  padding: 15px;
-  margin: 15px 0;
-  border: 1px solid #eee;
-  border-left-width: 5px;
-  border-radius: 3px; }
-  .bs-callout h4 {
-    margin-top: 0;
-    margin-bottom: 5px; }
-  .bs-callout p:last-child {
-    margin-bottom: 0; }
-  .bs-callout .btn {
-    margin-top: 15px; }
-  .bs-callout + .bs-callout {
-    margin-top: -5px; }
-  .bs-callout .remove-request {
-    float: right; }
-
-.callout-red {
-  border-left-color: #a94442; }
-  .callout-red h4 {
-    color: #a94442; }
-
-.callout-green {
-  border-left-color: #558564; }
-  .callout-green h4 {
-    color: #558564; }
-
-.class-info {
-  margin: 15px 0; }
-  .class-info > p {
-    margin-bottom: 5px; }
-
-.ng-submitted .form-control.ng-invalid {
-  border-color: #a94442; }
-
-.select-group select {
-  display: inline-block;
-  margin-right: 1%;
-  width: 30%; }
-
 .loading {
-  margin-top: 15px; }
-  .loading img {
-    margin: auto; }
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px; }
+  .loading:after {
+    animation: lds-hourglass 1.2s infinite;
+    border: 26px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    border-radius: 50%;
+    box-sizing: border-box;
+    content: "";
+    display: block;
+    height: 0;
+    margin: 6px;
+    width: 0; }
+
+@keyframes lds-hourglass {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  100% {
+    transform: rotate(1800deg); } }
