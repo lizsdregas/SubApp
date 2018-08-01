@@ -1,7 +1,7 @@
 $margin: 50px;
 $pink: rgb(255,229,237);
 $green: rgb(224,255,233);
-$red: red; 
+$red: #ce1313;  
 $font-headline: 'Ruda', Sans-Serif;
 $font-copy: 'Roboto Slab', Serif;
 
@@ -47,10 +47,11 @@ button {
     .wrapper {
         align-items: center;
         display: grid;
-        grid-template-columns: 65% 35%;
+        grid-template-columns: 75% 25%;
         grid-template-rows:  10vw auto 5vw;
         grid-gap: 1em;
-        justify-items: center;
+        margin: 0 auto;
+        max-width: 60%;
         padding: $margin; 
     } 
 
@@ -61,8 +62,7 @@ button {
     }
 
     aside {
-        align-self: start; 
-        justify-self: left;
+        align-self: start;
     }
 }
 
@@ -99,6 +99,7 @@ form {
     min-height: 50px; 
 }
 
+// PAGER LOADER
 .loading-wrapper {
     align-items: center;
     display: grid;
@@ -114,7 +115,7 @@ form {
     height: 64px;
 
     &:after {
-        animation: lds-hourglass 1.2s infinite;
+        animation: loading-animation 1.2s infinite;
         border: 26px solid #fff;
         border-color: #fff transparent #fff transparent;
         border-radius: 50%;
@@ -127,7 +128,7 @@ form {
     }
 }
 
-@keyframes lds-hourglass {
+@keyframes loading-animation {
     0% {
       transform: rotate(0);
       animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);

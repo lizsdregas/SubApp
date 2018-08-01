@@ -30,18 +30,18 @@ button {
   .wrapper {
     align-items: center;
     display: grid;
-    grid-template-columns: 65% 35%;
+    grid-template-columns: 75% 25%;
     grid-template-rows: 10vw auto 5vw;
     grid-gap: 1em;
-    justify-items: center;
+    margin: 0 auto;
+    max-width: 60%;
     padding: 50px; }
   header,
   footer {
     grid-column: span 2;
     text-align: center; }
   aside {
-    align-self: start;
-    justify-self: left; } }
+    align-self: start; } }
 
 @media (max-width: 767px) {
   .wrapper {
@@ -54,7 +54,7 @@ form {
   position: relative; }
 
 .ng-touched.ng-invalid {
-  border-color: red; }
+  border-color: #ce1313; }
 
 .error {
   color: red;
@@ -79,7 +79,7 @@ form {
   width: 64px;
   height: 64px; }
   .loading:after {
-    animation: lds-hourglass 1.2s infinite;
+    animation: loading-animation 1.2s infinite;
     border: 26px solid #fff;
     border-color: #fff transparent #fff transparent;
     border-radius: 50%;
@@ -90,7 +90,7 @@ form {
     margin: 6px;
     width: 0; }
 
-@keyframes lds-hourglass {
+@keyframes loading-animation {
   0% {
     transform: rotate(0);
     animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
